@@ -2,6 +2,13 @@
 const getId = new URLSearchParams(window.location.search).get("id"); //...VIA SON URL
 const itemUrl = `http://localhost:3000/api/cameras/${getId}`;
 
+//----------------------IMPORT
+import { formatPrice } from "./main.js";
+
+let container = document.querySelector('main');
+container.className = "container-fluid";
+
+
 console.log(`Récupération de l'ID du produit : ${itemUrl}`);
 
 // ---------------------------------- RECUPERATION DU PRODUIT
@@ -10,94 +17,41 @@ async function fetchProduct() {
         
         let response = await fetch(itemUrl); // REQUETE
         if (response.ok) {
-            let item = await response.json(); // REPONSE PARSÉE
+            let item = await response.json();
+             // REPONSE PARSÉE
+            //----------------------FONCTION : CREER LE BLOC ITEM
+            container.innerHTML =    
+            `<section class="row justify-content-center col-12">
+                <div class="col-6"><img src=${item.imageUrl} class="img-fluid"></div>
+                    <aside class="col-4" style="height: fit-content;">
+                        <ul class="row list-group-flush">
+                            <li class="text-left list-group-item  col-12">${item.name}</li>
+                            <li class="text-left list-group-item  col-12">${item.description}</li>
+                            <li class="text-left list-group-item  col-12">
+                                <select id="selectOpt" class="form-control"></select></li>
+                            <li class="text-left list-group-item  col-5">
+                                <select class="form-control" id="selectQt"><option>1</option><option>2</option><option>3</option><option>4</option>
+                                <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                                <option>11</option><option>12</option><option>13</option><option>14</option></select></li>
+                            <li class="text-center col-7 list-group-item  ">${formatPrice(item.price)} €</li></ul>
+                        <button id="cartBtn" class="d-flex btn btn-secondary text-center col-4 mx-auto mt-4" type="button">Ajouter au panier</button>
+                    </aside>
+            </section>`
+            let itemQuantitySelect = document.getElementById('selectQt');
+            let itemOptionsSelect = document.getElementById('selectOpt');
+            console.log(itemOptionsSelect)
 
-            //----------------------------------- TEMPLATE PRODUIT
+    
 
-            // VARIABLES
-            let containerProduct = document.querySelector('main');
-            containerProduct.className = "container-fluid";
+             // LOOP DES OPTIONS...
 
-            let mainBlocProduct = document.createElement('section');
-            mainBlocProduct.className = "row justify-content-center col-12";
-
-            let imgBloc = document.createElement('div');
-            imgBloc.className = "col-6";
-
-            let asideBlocProduct = document.createElement('aside');
-            asideBlocProduct.className = "col-4";
-            asideBlocProduct.style.height = "fit-content";
-
-            let asideList = document.createElement('ul');
-            asideList.className = "row list-group-flush"
-
-            let itemNameProduct = document.createElement('li');
-            itemNameProduct.className = "text-left list-group-item  col-12";
-
-            let itemDescriptionProduct = document.createElement('li');
-            itemDescriptionProduct.className = "text-left list-group-item  col-12";
-
-            let itemPriceProduct = document.createElement('li');
-            itemPriceProduct.className = "text-center col-7 list-group-item  ";
-
-            let listOptionsBloc = document.createElement('li');
-            listOptionsBloc.className = "text-left list-group-item  col-12";
-
-            let listQuantityBloc = document.createElement('li');
-            listQuantityBloc.className = "text-left list-group-item  col-5";
-
-            let itemOptionsSelect = document.createElement('select');
-            itemOptionsSelect.className = "form-control";
-
-            let itemQuantitySelect = document.createElement('select');
-            itemQuantitySelect.className = "form-control";
-            itemQuantitySelect.id = "SelectQt";
-
-            let cartBtn = document.createElement('button');
-            cartBtn.className = "d-flex btn btn-secondary text-center col-4 mx-auto mt-4";
-
-            itemNameProduct.textContent = item.name;
-            itemPriceProduct.textContent = item.price + " €";
-            itemDescriptionProduct.textContent = item.description;
-            imgBloc.innerHTML = `<img src="${item.imageUrl}" class="img-fluid">`;
-            cartBtn.textContent = `Ajouter au panier`;
-            cartBtn.setAttribute("type", "button");
-
-            let itemName = item.name;
-            let itemPrice = item.price;
-            let itemDescription = item.description;
-            let itemImg = item.imageUrl;
-
-            // LAYOUT
-            containerProduct.appendChild(mainBlocProduct);
-            mainBlocProduct.appendChild(imgBloc);
-            mainBlocProduct.appendChild(asideBlocProduct);
-            asideBlocProduct.appendChild(asideList);
-            asideList.appendChild(itemNameProduct);
-            asideList.appendChild(itemDescriptionProduct);
-            asideList.appendChild(listOptionsBloc);
-            listOptionsBloc.appendChild(itemOptionsSelect);
-            asideList.appendChild(listQuantityBloc);
-            listQuantityBloc.appendChild(itemQuantitySelect);
-            asideList.appendChild(itemPriceProduct);
-            asideBlocProduct.appendChild(cartBtn);
-
-            // LOOP DES OPTIONS...
-            for (let option in item.lenses) {
+             for (let option in item.lenses) {
                 let itemOptions = document.createElement('option');
                 itemOptions.innerHTML = item.lenses[option];
-                itemOptionsSelect.appendChild(itemOptions);
-
-            }
-            //...ET DES QUANTITE
-            for (let i = 1; i < 15; i++) {
-                let itemQuantity = document.createElement('option');
-                itemQuantity.innerHTML = i;
-                itemQuantitySelect.appendChild(itemQuantity);
-            }
+                itemOptionsSelect.appendChild(itemOptions);}
 
 
-            // CAPTURE DES DERNIERS CHOIX UTILISATEURS OPTIONS & QUANTITES
+            //CAPTURE DES DERNIERS CHOIX UTILISATEURS OPTIONS & QUANTITES
             itemQuantitySelect.addEventListener('change', selectQuantity);
 
             function selectQuantity() {
@@ -129,19 +83,19 @@ async function fetchProduct() {
 
             //----------------------------------BOUTON : ENVOI VERS PANIER 
 
-            cartBtn.addEventListener('click', (e) => {
+            document.getElementById('cartBtn').addEventListener('click', (e) => {
 
                 e.preventDefault;
 
                 let addItemToCart = { // CREATION DE L'OBJET PRODUIT
                     id: item._id,
-                    name: itemName,
-                    description: itemDescription,
-                    price: itemPrice,
-                    img: itemImg,
+                    name: item.name,
+                    description: item.description,
+                    price: item.price,
+                    img: item.imageUrl,
                     options: selectOptions(),
                     quantity: selectQuantity(),
-                    subTotal: selectQuantity() * itemPrice
+                    subTotal: selectQuantity() * item.price
                 };
                 
                 // SI LE PRODUIT EST DEJA PRESENT DANS PANIER...
@@ -183,11 +137,14 @@ async function fetchProduct() {
             });
         }
 
-    } catch (error) {
+    }catch (error) {
+        container.innerHTML = `<h2 class="h4 text-center col-12 mt-5 pt-4">
+         Une erreur est survenue, veuillez recharger la page.</h2>`; 
         console.log(error);
     }
 
 };
 
 
-fetchProduct();
+fetchProduct(itemUrl);
+

@@ -1,28 +1,35 @@
 //---------------------URL PRODUIT DE L'API
 const url = "http://localhost:3000/api/cameras/";
 
+//----------------------IMPORT
+import { formatPrice } from "./main.js";
+
 //----------------------BLOC PARENT
 let container = document.querySelector('main');
 container.className = "container-fluid row mx-auto"
 
+
           
-//---------------------_SI LA REQUETE A ABOUTI...
-fetchIndex(url).then(itemsData =>{
-    for (let i in itemsData) { //...GENERER LES BLOCS
-        createItemBloc(itemsData[i]);}
+//---------------------SI LA REQUETE A ABOUTI...
+fetchIndex(url).then(items =>{
+    for (let i in items) { //...GENERER LES BLOCS
+        createItemBloc(items[i]);
+        }
     })
     .catch(error =>{ //...SINON AFFICHER :
          container.innerHTML = `<h2 class="h4 text-center col-12 mt-5 pt-4">
-         Une erreur est survenue, veuillez recharger la page.</h2>`   
+         Une erreur est survenue, veuillez recharger la page.</h2>`; 
+         console.log(error);  
     });
 
 //---------------------FONCTION : RETOURNER LE CONTENU DE LA REQUETE
-async function fetchIndex() {
+async function fetchIndex(url) {
 
     let response = await fetch(url); 
     if (response.ok) {
-        let itemsData = await response.json();
-        return itemsData; 
+        let items = await response.json();
+        
+        return items; 
     };
 };      
     
@@ -41,7 +48,7 @@ function createItemBloc(item) {
     container.innerHTML += product; // CREATION D'UN BLOC 
                                     // SUPPLEMENTAIRE A CHAQUE TOUR DE BOUCLE               
 }
-//-----------------------FONCTION : FORMATER LE PRIX
-export function formatPrice(price){
-    return (price/100).toFixed(2);
-}
+
+
+
+
