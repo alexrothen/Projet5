@@ -38,8 +38,8 @@ function createItemBloc(item) {
                             <li class = "text-center col-10 list-group-item mx-auto"> 
                                 <img src=${item.imageUrl} class="img-fluid"></li>
                             <li class="text-left col-10 mx-auto list-group-item">${item.name}</li> 
-                            <li class = "text-left col-7 ml-auto list-group-item">${item.description}</li>
-                            <li class="text-right col-3 mr-auto list-group-item">${formatPrice(item.price)} €</li> 
+                            <li class = "text-justify col-6 ml-auto list-group-item">${item.description}</li>
+                            <li class="text-right col-4 mr-auto list-group-item"><strong>Prix: ${formatPrice(item.price)} €</strong></li> 
                         </ul>
                     </a>`;
     container.innerHTML += product; // CREATION D'UN BLOC 

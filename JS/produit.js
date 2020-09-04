@@ -94,6 +94,7 @@ function sendBtn(item) {
                 text: `${addItemToCart.quantity} ${addItemToCart.name} option ${addItemToCart.options}`,
                 confirmButtonColor: '#6C757D'
             })
+           
         }
         // ENVOI DE L'OBJET PRODUIT VERS LE LOCALSTORAGE
         localStorage.setItem("itemCart", JSON.stringify(cart));
@@ -126,20 +127,21 @@ function createCart() {
 //----------------------FONCTION : CREER LE BLOC ITEM
 function createItemBloc(item) {
     container.innerHTML =
-        `<section class="row justify-content-center col-12">
-    <div class="col-6"><img src=${item.imageUrl} class="img-fluid"></div>
-        <aside class="col-4" style="height: fit-content;">
-            <ul class="row list-group-flush">
-                <li class="text-left list-group-item  col-12">${item.name}</li>
-                <li class="text-left list-group-item  col-12">${item.description}</li>
-                <li class="text-left list-group-item  col-12">
-                    <select id="selectOpt" class="form-control"></select></li>
-                <li class="text-left list-group-item  col-5">
+        `<section class="row justify-content-center mx-auto col-12 mb-4">
+    <div class="col-lg-7 col-md-8 col-sm-12"><img src=${item.imageUrl} class="img-fluid"></div>
+        <aside class="col-lg-4 col-md-4" style="height: fit-content;">
+            <ul class="row list-group-flush pl-0">
+                <li class="text-left list-group-item col-lg-12">${item.name}</li>
+                <li class="text-justify list-group-item col-lg-12">${item.description}</li>
+                <li class="text-left list-group-item col-md-5 col-lg-4">
                     <select class="form-control" id="selectQt"><option>1</option><option>2</option><option>3</option><option>4</option>
                     <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-                    <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option></select></li>
-                <li class="text-center col-7 list-group-item  ">${formatPrice(item.price)} €</li></ul>
-            <button id="cartBtn" class="d-flex btn btn-secondary text-center col-4 mx-auto mt-4" type="button">Ajouter au panier</button>
+                    <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option>
+                    <option>18</option><option>19</option><option>20</option></select></li>
+                <li class="text-left list-group-item col-md-7 col-lg-8">
+                    <select id="selectOpt" class="form-control"></select></li>
+                <li class="text-center col-md-12 list-group-item  "><strong>Prix : ${formatPrice(item.price)} €</strong></li></ul>
+            <button id="cartBtn" class="btn btn-secondary d-flex mx-auto mt-4" type="button">Ajouter au panier</button>
         </aside>
 </section>`
 };

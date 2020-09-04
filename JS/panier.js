@@ -67,17 +67,17 @@ form.addEventListener('submit', (e) => {
 function createItemBloc(item) {
   
     let itemBloc = document.createElement('section');
-    itemBloc.className = "row mx-auto pt-0 col-10 shadow-sm pt-3 mb-5 bg-white rounded ";
+    itemBloc.className = "row mx-auto pt-0 col-lg-10 col-md-11 shadow-sm pt-3 mb-5 bg-white rounded ";
 
     let imgBloc = document.createElement('div');
-    imgBloc.className = "d-flex col-5 align-items-start";
+    imgBloc.className = "d-flex col-lg-6 col-md-6 align-items-start mx-auto";
 
     let asideBloc = document.createElement('aside');
-    asideBloc.className = "col-7 d-flex flex-column p-0";
+    asideBloc.className = "col-lg-6 col-md-6 d-flex flex-column p-0";
     asideBloc.style.height = "fit-content";
 
     let asideList = document.createElement('ul');
-    asideList.className = "d-flex list-group-flush row col-12"
+    asideList.className = "d-flex list-group-flush row col-12 mb-0"
 
     let itemName = document.createElement('li');
     itemName.className = "text-left list-group-item col-12";
@@ -86,13 +86,13 @@ function createItemBloc(item) {
     itemDescription.className = "text-justify list-group-item col-12";
 
     let itemPrice = document.createElement('li');
-    itemPrice.className = "text-right col-4 list-group-item col-9";
+    itemPrice.className = "d-flex justify-content-end col-lg-8 col-md-8 pt-4 list-group-item";
 
     let itemOptions = document.createElement('li');
     itemOptions.className = "text-left list-group-item col-12";
 
     let itemQuantity = document.createElement('li');
-    itemQuantity.className = "text-left list-group-item col-3";
+    itemQuantity.className = "text-left list-group-item col-lg-4 col-md-4 ";
 
     let itemQuantitySelect = document.createElement('select');
     itemQuantitySelect.className = "form-control";
@@ -112,12 +112,12 @@ function createItemBloc(item) {
     });
 
     itemName.textContent = item.name;
-    itemPrice.textContent = `${formatPrice(item.price)} €`;
+    itemPrice.textContent = `Prix: ${formatPrice(item.price)} €`;
     itemDescription.textContent = item.description;
     imgBloc.innerHTML = `<img src="${item.imageUrl}" class="img-fluid pb-3">`;
-    subTotal.textContent = `${formatPrice(item.subTotal)} €`;
+    subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
     itemOptions.textContent = item.options;
-    removeBtn.innerHTML = `<span aria-hidden="true">&times;</span>`;
+    removeBtn.innerHTML = `<span class="pt-2" aria-hidden="true">&times;</span>`;
 
     // LOOP DE LA QUANTITE 
     for (let i = 1; i <= 20; i++) {
@@ -139,7 +139,7 @@ function createItemBloc(item) {
         localStorage.setItem("itemCart", JSON.stringify(cart)); //...ENVOYER NOUVELLES DONNEES VERS LE LOCALSTORAGE
         total(); //...RECALCUL DU TOTAL GENERAL
         totalAmount.textContent = `total : ${formatPrice(total())} €`; // AFFICHAGE DU TOTAL GENERAL
-        subTotal.textContent = `${formatPrice(item.subTotal)} €`; //...AFFICHAGE DES SOUS-TOTAUX
+        subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
         console.log(`Quantité mise à jour : ${item.quantity} ${item.name} option ${item.options} ${formatPrice(item.subTotal)} €`)
         Swal.fire({
             title: `Quantité mise à jour !`,
@@ -182,7 +182,7 @@ function createItemBloc(item) {
             }
             total(); // RECALCUL DU TOTAL A CHAQUE SUPPRESSION
             totalAmount.textContent = `total : ${formatPrice(total())} €`; // AFFICHAGE DU TOTAL GENERAL
-            subTotal.textContent = item.subTotal + " €"; //...AFFICHAGE DES SOUS-TOTAUX
+            subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
         })
     }
 
