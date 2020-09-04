@@ -7,9 +7,7 @@ import { formatPrice } from "./main.js";
 //----------------------BLOC PARENT
 let container = document.querySelector('main');
 container.className = "container-fluid row mx-auto"
-
-
-          
+        
 //---------------------SI LA REQUETE A ABOUTI...
 fetchIndex(url).then(items =>{
     for (let i in items) { //...GENERER LES BLOCS
@@ -33,7 +31,6 @@ async function fetchIndex(url) {
     };
 };      
     
-//----------------------FONCTION : CREER LE BLOC ITEM
 function createItemBloc(item) {
 
     let product =  `<a class = "badge badge-light col-md-6 col-sm-12 mx-auto" href = "produit.html?id=${item._id}" style = "white-space: normal;" > 

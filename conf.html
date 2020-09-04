@@ -1,36 +1,92 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="CSS/style.css">
 
     <title>orinico - confirmation</title>
 </head>
+
 <body class="bg-light">
     <header class="container-fluid">
-        <div class="row mb-5 pt-2">
+        <div class="row mb-4 pt-2 col-12">
             <a class="col-11 text-decoration-none text-muted text-dark" href="index.html">
-            <h1 class="display-3 text-center text-muted ml-5 pl-5">orinico</h1>
-        </a>
-        <a class="text-decoration-none text-muted align-self-center" href="panier.html">
-        <svg width="2.2rem" height="2.2rem" viewBox="0 0 16 16" class="bi bi-bag text-muted rounded float-right img-fluid" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z"/>
-            <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z"/>
-          </svg>  
-        </a>
-    </div>
+                <h1 class="display-3 text-center text-muted ml-5 pl-5">orinico</h1>
+            </a>
+            <a class="text-decoration-none text-muted align-self-center col-1" href="panier.html">
+                <svg width="2.2rem" height="2.2rem" viewBox="0 0 16 16"
+                    class="bi bi-bag text-muted rounded float-right img-fluid" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z" />
+                    <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z" />
+                </svg>
+            </a>
+        </div>
     </header>
-    <main class="container">
-        <div id="blocThanks" class="row jumbotron col-11 mx-auto">
-        <h2 class="h2 text-center col-12">Merci pour votre commande !</h2>
-        <p id="numOrder" class="text-center col-12"></p>
-        <p id="total" class="text-center col-12"></p>
-    </div>
-   
+    <main class="container-fluid">
+
+        <div class="mt-5">
+            <div class="card col-9 mx-auto p-0">
+                <div class="card-header">
+                    <h2 id="thanks" class="h3 text-center mb-4 mt-2"></h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4 col-12 mx-auto">
+                        <div class="col-sm-6 mb-3">
+                            <h4 class="text-muted">orinico</h4>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <ul class="list-unstyled">
+                                <li id="name" class="text-right"></li>
+                                <li id="address" class="text-right"></li>
+                                <li id="city" class="text-right"></li>
+                                <li id="email" class="text-right"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th id="numOrder" class="center"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="rowBloc">
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-5">
+
+                        </div>
+
+                        <div class="col-lg-4 col-sm-5 ml-auto">
+                            <table class="table table-clear">
+                                <tbody>
+                                    <tr>
+                                        <td class="right text-right">
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="right text-right">
+                                            <strong id="total"></strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script type="module" src="JS/conf.js"></script>
 </body>
+
 </html>
