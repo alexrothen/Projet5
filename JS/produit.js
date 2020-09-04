@@ -90,7 +90,7 @@ function sendBtn(item) {
             cart.push(addItemToCart);
             console.log(`${addItemToCart.quantity} ${addItemToCart.name} option ${addItemToCart.options} dans le panier`);
             Swal.fire({
-                title: `Ajouté au panier !`,
+                title: `Article ajouté au panier !`,
                 text: `${addItemToCart.quantity} ${addItemToCart.name} option ${addItemToCart.options}`,
                 confirmButtonColor: '#6C757D'
             })
