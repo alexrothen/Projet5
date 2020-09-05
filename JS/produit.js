@@ -94,7 +94,7 @@ function sendBtn(item) {
                 text: `${addItemToCart.quantity} ${addItemToCart.name} option ${addItemToCart.options}`,
                 confirmButtonColor: '#6C757D'
             })
-           
+
         }
         // ENVOI DE L'OBJET PRODUIT VERS LE LOCALSTORAGE
         localStorage.setItem("itemCart", JSON.stringify(cart));

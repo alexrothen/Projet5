@@ -14,17 +14,17 @@ let orderBtn = document.getElementById('orderBtn');
 let container = document.getElementById('mainBloc');
 container.className = "container-fluid d-flex row mx-auto pb-5 col-12";
 
-checkCart();// VERIFICATION DU PANIER
+checkCart(); // VERIFICATION DU PANIER
 
 for (let i in cart) {
-    createItemBloc(cart[i]);// CREATION DES BLOCS ITEMS
+    createItemBloc(cart[i]); // CREATION DES BLOCS ITEMS
 }
 sendData(); // ENVOI DES DONNEES
 
 
 //---------------------------------FONCTION : CREER LE BLOC ITEM
 function createItemBloc(item) {
-  
+
     let itemBloc = document.createElement('section');
     itemBloc.className = "row mx-auto pt-0 col-lg-10 col-md-11 shadow-sm pt-3 mb-5 bg-white rounded ";
 
@@ -88,7 +88,7 @@ function createItemBloc(item) {
     }
 
     itemQuantitySelect.addEventListener('change', selectQuantity);
-   
+
     //------------------------FONCTION : RECUPERER LA DERNIERE QUANTITE CHOISIE
     function selectQuantity() {
         let quantitySelected = itemQuantitySelect.options[itemQuantitySelect.selectedIndex].value; //...RECUPERATION DE LA QUANTITE SELECTIONNEE
@@ -99,7 +99,7 @@ function createItemBloc(item) {
         totalAmount.textContent = `total : ${formatPrice(total())} €`; // AFFICHAGE DU TOTAL GENERAL
         subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
         console.log(`Quantité mise à jour : ${item.quantity} ${item.name} option ${item.options} ${formatPrice(item.subTotal)} €`)
-        
+
     }
     // ARCHITECTURE
     container.appendChild(itemBloc);
@@ -134,7 +134,7 @@ function createItemBloc(item) {
                 emptyCart(); //...PUIS AFFICHER 'PANIER VIDE'
             }
             total(); // RECALCUL DU TOTAL A CHAQUE SUPPRESSION
-            totalAmount.textContent = `total : ${formatPrice(total())} €`; 
+            totalAmount.textContent = `total : ${formatPrice(total())} €`;
             subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
         })
     }
@@ -150,11 +150,11 @@ function createItemBloc(item) {
 }
 //---------------------------FONCTION : ENVOYER LES DONNEES
 
-function sendData(){
+function sendData() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-    
-        let contact = {  // OBJET CONTACT
+
+        let contact = { // OBJET CONTACT
             firstName: document.getElementById('firstName').value,
             lastName: document.getElementById('lastName').value,
             address: document.getElementById('address').value,
@@ -163,35 +163,38 @@ function sendData(){
             email: document.getElementById('email').value
         };
         let products = []; // ARRAY PRODUITS SELECTIONNES
-            cart.forEach(item => {
-                products.push(item._id);
-            });
-    
-        let order = {contact,products}; // OBJET COMPLET
-    
+        cart.forEach(item => {
+            products.push(item._id);
+        });
+
+        let order = {
+            contact,
+            products
+        }; // OBJET COMPLET
+
         fetch("http://localhost:3000/api/cameras/order/", { // REQUETE
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-            },
-            mode: "cors",
-            body: JSON.stringify(order)
-        })
-        .then( response => response.json()) 
-        .then( response => {
-    
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                mode: "cors",
+                body: JSON.stringify(order)
+            })
+            .then(response => response.json())
+            .then(response => {
+
                 let orderId = response.orderId; // RECUPERATION DE L'ID DE COMMANDE
                 localStorage.setItem("orderId", orderId);
                 localStorage.setItem("itemCart", JSON.stringify(cart));
                 localStorage.setItem("contact", JSON.stringify(contact));
-    
+
                 localStorage.setItem("totalAmount", formatPrice(total())); // ENVOI DU TOTAL
                 form.setAttribute("action", `${window.location.replace("conf.html")}`)
-               })
-               e.stopPropagation();      
-    
-        })
-    }
+            })
+        e.stopPropagation();
+
+    })
+}
 //--------------------------------FONCTION : VERIFIER L'ETAT DU PANIER
 function checkCart() {
     if (!cart) { // SI LE PANIER EST VIDE...
