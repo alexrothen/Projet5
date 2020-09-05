@@ -33,7 +33,7 @@ let cart = localStorage.getItem("itemCart");
 createCart();
 
 
-//----------------------------------BOUTON : ENVOYER LE PANIER 
+//----------------------------------FONCTION : ENVOYER LE PANIER 
 function sendBtn(item) {
     document.getElementById('cartBtn').addEventListener('click', (e) => {
 

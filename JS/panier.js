@@ -5,64 +5,23 @@ import {
 
 //-----------------------------------------RECUPERATION DU PANIER
 let cart = JSON.parse(localStorage.getItem("itemCart"));
+
+//-----------------------------------------VARIABLES (DOM)
 let form = document.getElementById('form');
 let formBloc = document.getElementById('formBloc');
-formBloc.style.display = 'block';
 let totalAmount = document.getElementById('totalAmount');
 let orderBtn = document.getElementById('orderBtn');
-
-
-//-----------------------------------------CREATION DU CONTAINER
-
 let container = document.getElementById('mainBloc');
 container.className = "container-fluid d-flex row mx-auto pb-5 col-12";
 
-checkCart();
+checkCart();// VERIFICATION DU PANIER
 
 for (let i in cart) {
-    createItemBloc(cart[i]);
+    createItemBloc(cart[i]);// CREATION DES BLOCS ITEMS
 }
-//BOUTON SUBMIT
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+sendData(); // ENVOI DES DONNEES
 
-    let contact = {  // OBJET CONTACT
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        address: document.getElementById('address').value,
-        city: document.getElementById('city').value,
-        zip: document.getElementById('zip').value,
-        email: document.getElementById('email').value
-    };
-    let products = []; // ARRAY PRODUITS
-        cart.forEach(item => {
-            products.push(item._id);
-        });
 
-    let order = {contact,products}; // OBJET COMMANDE COMPLETE
-
-    fetch("http://localhost:3000/api/cameras/order/", { // ENVOI VERS L'API
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json; charset=UTF-8"
-        },
-        mode: "cors",
-        body: JSON.stringify(order)
-    })
-    .then( response => response.json()) 
-    .then( response => {
-
-            let orderId = response.orderId; // RECUPERATION DE L'ID DE COMMANDE
-            localStorage.setItem("orderId", orderId);
-            localStorage.setItem("itemCart", JSON.stringify(cart));
-            localStorage.setItem("contact", JSON.stringify(contact));
-
-            localStorage.setItem("totalAmount", formatPrice(total())); // ENVOI DU TOTAL
-            form.setAttribute("action", `${window.location.replace("conf.html")}`)
-           })
-           e.stopPropagation();      
-
-    })
 //---------------------------------FONCTION : CREER LE BLOC ITEM
 function createItemBloc(item) {
   
@@ -128,10 +87,9 @@ function createItemBloc(item) {
         itemQuantitySelect.appendChild(itemQuantityOption);
     }
 
-    // CHANGEMENT DYNAMIQUE DES QUANTITES ET DES SOUS-TOTAUX...
-
     itemQuantitySelect.addEventListener('change', selectQuantity);
-
+   
+    //------------------------FONCTION : RECUPERER LA DERNIERE QUANTITE CHOISIE
     function selectQuantity() {
         let quantitySelected = itemQuantitySelect.options[itemQuantitySelect.selectedIndex].value; //...RECUPERATION DE LA QUANTITE SELECTIONNEE
         item.quantity = quantitySelected; //...LA REMPLACER DANS LE PANIER
@@ -164,6 +122,7 @@ function createItemBloc(item) {
     retrieveQt(item);
     removeItem(item);
 
+    //------------------------------FONCTION : SUPPRIMER LE BLOC AU CLICK
     function removeItem(item) {
         removeBtn.addEventListener('click', (e) => {
 
@@ -173,7 +132,7 @@ function createItemBloc(item) {
             console.log(`article supprimé du panier`)
             localStorage.setItem("itemCart", JSON.stringify(cart));
 
-            //PUIS LORSQUE LE PANIER EST VIDE...
+            //EN CAS DE SUPPRESSION DE TOUS LES BLOCS :
             if (cart.length === 0) {
 
                 localStorage.removeItem("itemCart"); //...SUPPRIMER L'ARRAY VIDE DANS LE LOCALSTORAGE
@@ -181,11 +140,11 @@ function createItemBloc(item) {
                 emptyCart(); //...PUIS AFFICHER 'PANIER VIDE'
             }
             total(); // RECALCUL DU TOTAL A CHAQUE SUPPRESSION
-            totalAmount.textContent = `total : ${formatPrice(total())} €`; // AFFICHAGE DU TOTAL GENERAL
+            totalAmount.textContent = `total : ${formatPrice(total())} €`; 
             subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
         })
     }
-
+    //---------------------------FONCTION : RECUPERER LA QUANTITE CHOISIE SUR LA PAGE PRODUIT
     function retrieveQt(item) {
         //RECUPERATION DE LA QUANTITE SELECTIONNEE SUR LA PAGE PRODUIT...
         let chosenQuantity = itemQuantitySelect.querySelector(`[value="${item.quantity}"`);
@@ -195,8 +154,51 @@ function createItemBloc(item) {
         chosenQuantity.setAttribute('selected', "");
     }
 }
+//---------------------------FONCTION : ENVOYER LES DONNEES
 
-//--------------------------------VERIFICATION DU PANIER
+function sendData(){
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+    
+        let contact = {  // OBJET CONTACT
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            address: document.getElementById('address').value,
+            city: document.getElementById('city').value,
+            zip: document.getElementById('zip').value,
+            email: document.getElementById('email').value
+        };
+        let products = []; // ARRAY PRODUITS SELECTIONNES
+            cart.forEach(item => {
+                products.push(item._id);
+            });
+    
+        let order = {contact,products}; // OBJET COMPLET
+    
+        fetch("http://localhost:3000/api/cameras/order/", { // REQUETE
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+            },
+            mode: "cors",
+            body: JSON.stringify(order)
+        })
+        .then( response => response.json()) 
+        .then( response => {
+    
+                let orderId = response.orderId; // RECUPERATION DE L'ID DE COMMANDE
+                localStorage.setItem("orderId", orderId);
+                localStorage.setItem("itemCart", JSON.stringify(cart));
+                localStorage.setItem("contact", JSON.stringify(contact));
+    
+                localStorage.setItem("totalAmount", formatPrice(total())); // ENVOI DU TOTAL
+                form.setAttribute("action", `${window.location.replace("conf.html")}`)
+               })
+               e.stopPropagation();      
+    
+        })
+    }
+//--------------------------------FONCTION : VERIFIER L'ETAT DU PANIER
 function checkCart() {
     if (!cart) { // SI LE PANIER EST VIDE...
         emptyCart(); //...AFFICHER 'PANIER VIDE !'
@@ -207,7 +209,7 @@ function checkCart() {
     }
 }
 
-//-----------------------------------AFFICHER 'PANIER VIDE !'
+//---------------------------------FONCTION : AFFICHER 'PANIER VIDE !'
 function emptyCart() {
 
     let emptyCart = document.createElement('h2');
@@ -217,7 +219,7 @@ function emptyCart() {
     formBloc.remove();
 
 };
-//---------------------------------CALCUL DU TOTAL
+//---------------------------------FONCTION : CALCUL DU TOTAL
 function total() {
     let total = 0;
     for (let i in cart) {
@@ -227,16 +229,14 @@ function total() {
     return total;
 
 }
-// FONCTION PERMETTANT D'INTEGRER PLUSIEURS ATTRIBUTS
+//-----------------------------------FONCTION : INTEGRER PLUSIEURS ATTRIBUTS A LA FOIS
 function setAttributes(el, options) {
     Object.keys(options).forEach(function (attr) {
         el.setAttribute(attr, options[attr]);
     })
 }
 
-// //------------------------------------BOUTON : COMMANDE
-
-// BOUTON DESACTIVÉ SI LE FORMULAIRE EST INCOMPLET
+//-------------------------------------BOUTON : DESACTIVÉ SI LE FORMULAIRE EST INCOMPLET
 form.addEventListener('change', () => {
     if (form.checkValidity() === true) {
         orderBtn.removeAttribute("disabled");
