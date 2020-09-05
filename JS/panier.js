@@ -99,13 +99,7 @@ function createItemBloc(item) {
         totalAmount.textContent = `total : ${formatPrice(total())} €`; // AFFICHAGE DU TOTAL GENERAL
         subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
         console.log(`Quantité mise à jour : ${item.quantity} ${item.name} option ${item.options} ${formatPrice(item.subTotal)} €`)
-        Swal.fire({
-            title: `Quantité mise à jour !`,
-            html: `<p>${item.quantity} ${item.name} option ${item.options}</p> 
-            <br><p><b>Montant: ${formatPrice(item.subTotal)} €</b></p>`,
-            confirmButtonColor: '#6C757D'
-
-        });
+        
     }
     // ARCHITECTURE
     container.appendChild(itemBloc);
