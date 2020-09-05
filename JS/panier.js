@@ -86,7 +86,7 @@ function createItemBloc(item) {
         itemQuantityOption.innerHTML = i;
         itemQuantitySelect.appendChild(itemQuantityOption);
     }
-
+    // EVENT : CAPTURER LA QUANTITE SELECTIONNEE
     itemQuantitySelect.addEventListener('change', selectQuantity);
 
     //------------------------FONCTION : RECUPERER LA DERNIERE QUANTITE CHOISIE
@@ -148,6 +148,8 @@ function createItemBloc(item) {
         chosenQuantity.setAttribute('selected', "");
     }
 }
+
+
 //---------------------------FONCTION : ENVOYER LES DONNEES
 
 function sendData() {
