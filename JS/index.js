@@ -13,7 +13,7 @@ container.className = "container-fluid row mx-auto"
 //---------------------SI LA REQUETE A ABOUTI...
 fetchIndex(url).then(items => {
         for (let i in items) { //...GENERER LES BLOCS
-            createItemBloc(items[i]);
+            createItemBlock(items[i]);
         }
     })
     .catch(error => { //...SINON AFFICHER :
@@ -33,7 +33,7 @@ async function fetchIndex(url) {
     };
 };
 
-function createItemBloc(item) {
+function createItemBlock(item) {
 
     let product = `<a class = "badge badge-light col-md-6 col-sm-12 mx-auto" href = "produit.html?id=${item._id}" style = "white-space: normal;" > 
                         <ul class = "row list-group-flush col-12 col-sm-12 text-center mx-auto "> 
@@ -44,6 +44,6 @@ function createItemBloc(item) {
                             <li class="text-right col-4 mr-auto list-group-item"><strong>Prix: ${formatPrice(item.price)} €</strong></li> 
                         </ul>
                     </a>`;
-    container.innerHTML += product; // CREATION D'UN BLOC 
+    container.innerHTML += product; // CREATION D'UN BLOC
     // SUPPLEMENTAIRE A CHAQUE TOUR DE BOUCLE               
 }

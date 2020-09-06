@@ -16,7 +16,7 @@ container.className = "container-fluid";
 //----------------------------SI LA REQUETE ABOUTIT :
 
 fetchProduct(itemUrl).then(item => {
-        createItemBloc(item); // GENERER LE BLOC PRODUIT
+        createItemBlock(item); // GENERER LE BLOC PRODUIT
         optionLoop(item); // GENERER LA BOUCLE DES OPTIONS 
         sendBtn(item); // GENERER LE BOUTON D'ENVOI
 
@@ -125,7 +125,7 @@ function createCart() {
 }
 
 //----------------------FONCTION : CREER LE BLOC ITEM
-function createItemBloc(item) {
+function createItemBlock(item) {
     container.innerHTML =
         `<section class="row justify-content-center mx-auto col-12 mb-4">
     <div class="col-lg-7 col-md-8 col-sm-12"><img src=${item.imageUrl} class="img-fluid"></div>

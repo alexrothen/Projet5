@@ -13,7 +13,7 @@ let totalAmount = localStorage.getItem("totalAmount"); // TOTAL
 
 
 //---------------------------ELEMENT PARENT SUR LEQUEL LES BLOCS VONT SE GREFFER
-let rowBloc = document.getElementById('rowBloc');
+let rowBlock = document.getElementById('rowBlock');
 
 assignCartElements(contact, totalAmount, orderId); // ASSIGNATION DES ELEMENTS
 
@@ -48,7 +48,7 @@ function invoiceProductList(item) {
     itemSubTotal.className = "col-lg-2 col-md-2 col-sm-3 text-right"
 
     //ARCHITECTURE
-    rowBloc.appendChild(row)
+    rowBlock.appendChild(row)
     row.appendChild(name);
     row.appendChild(description);
     row.appendChild(price);
@@ -71,7 +71,7 @@ function assignCartElements(contact, total, id) {
     } else {
         //...SINON EFFACER LE TABLEAU HTML ET AFFICHER LE MESSAGE CI-DESSOUS   
         document.getElementById('invoice').remove()
-        document.getElementById('mainBloc').innerHTML = `<h2 class="text-center display-4 mt-5 pt-5 ml-5 col-11 d-flex p-2 justify-content-center">A bientôt sur Orinico !</h2>
+        document.getElementById('mainBlock').innerHTML = `<h2 class="text-center display-4 mt-5 pt-5 ml-5 col-11 d-flex p-2 justify-content-center">A bientôt sur Orinico !</h2>
         `
     }
     localStorage.clear(); //...PUIS SUPPRIMER LE CONTENU DU LOCALSTORAGE

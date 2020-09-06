@@ -8,32 +8,32 @@ let cart = JSON.parse(localStorage.getItem("itemCart"));
 
 //-----------------------------------------VARIABLES (DOM)
 let form = document.getElementById('form');
-let formBloc = document.getElementById('formBloc');
+let formBlock = document.getElementById('formBlock');
 let totalAmount = document.getElementById('totalAmount');
 let orderBtn = document.getElementById('orderBtn');
-let container = document.getElementById('mainBloc');
+let container = document.getElementById('mainBlock');
 container.className = "container-fluid d-flex row mx-auto pb-5 col-12";
 
 checkCart(); // VERIFICATION DU PANIER
 
 for (let i in cart) {
-    createItemBloc(cart[i]); // CREATION DES BLOCS ITEMS
+    createItemBlock(cart[i]); // CREATION DES BLOCS ITEMS
 }
 sendData(); // ENVOI DES DONNEES
 
 
 //---------------------------------FONCTION : CREER LE BLOC ITEM
-function createItemBloc(item) {
+function createItemBlock(item) {
 
-    let itemBloc = document.createElement('section');
-    itemBloc.className = "row mx-auto pt-0 col-lg-10 col-md-11 shadow-sm pt-3 mb-5 bg-white rounded ";
+    let itemBlock = document.createElement('section');
+    itemBlock.className = "row mx-auto pt-0 col-lg-10 col-md-11 shadow-sm pt-3 mb-5 bg-white rounded ";
 
-    let imgBloc = document.createElement('div');
-    imgBloc.className = "d-flex col-lg-6 col-md-6 align-items-start mx-auto";
+    let imgBlock = document.createElement('div');
+    imgBlock.className = "d-flex col-lg-6 col-md-6 align-items-start mx-auto";
 
-    let asideBloc = document.createElement('aside');
-    asideBloc.className = "col-lg-6 col-md-6 d-flex flex-column p-0";
-    asideBloc.style.height = "fit-content";
+    let asideBlock = document.createElement('aside');
+    asideBlock.className = "col-lg-6 col-md-6 d-flex flex-column p-0";
+    asideBlock.style.height = "fit-content";
 
     let asideList = document.createElement('ul');
     asideList.className = "d-flex list-group-flush row col-12 mb-0"
@@ -73,7 +73,7 @@ function createItemBloc(item) {
     itemName.textContent = item.name;
     itemPrice.textContent = `Prix: ${formatPrice(item.price)} €`;
     itemDescription.textContent = item.description;
-    imgBloc.innerHTML = `<img src="${item.imageUrl}" class="img-fluid pb-3">`;
+    imgBlock.innerHTML = `<img src="${item.imageUrl}" class="img-fluid pb-3">`;
     subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
     itemOptions.textContent = item.options;
     removeBtn.innerHTML = `<span class="pt-2" aria-hidden="true">&times;</span>`;
@@ -102,10 +102,10 @@ function createItemBloc(item) {
 
     }
     // ARCHITECTURE
-    container.appendChild(itemBloc);
-    itemBloc.appendChild(imgBloc);
-    itemBloc.appendChild(asideBloc);
-    asideBloc.appendChild(asideList);
+    container.appendChild(itemBlock);
+    itemBlock.appendChild(imgBlock);
+    itemBlock.appendChild(asideBlock);
+    asideBlock.appendChild(asideList);
     asideList.appendChild(itemName);
     asideList.appendChild(itemOptions);
     asideList.appendChild(itemQuantity);
@@ -121,7 +121,7 @@ function createItemBloc(item) {
         removeBtn.addEventListener('click', (e) => {
 
             e.preventDefault;
-            itemBloc.remove(); // SUPPRESSION DU BLOC ITEM...
+            itemBlock.remove(); // SUPPRESSION DU BLOC ITEM...
             cart.splice(cart.indexOf(item), 1); //... ET DE L'ITEM DANS LE PANIER
             console.log(`article supprimé du panier`)
             localStorage.setItem("itemCart", JSON.stringify(cart));
@@ -215,7 +215,7 @@ function emptyCart() {
     emptyCart.className = "text-center display-4 mt-5 pt-5 ml-3 col-11 d-flex p-2 justify-content-center"
     emptyCart.textContent = "Panier vide !"
     container.appendChild(emptyCart);
-    formBloc.remove();
+    formBlock.remove();
 
 };
 //---------------------------------FONCTION : CALCUL DU TOTAL
