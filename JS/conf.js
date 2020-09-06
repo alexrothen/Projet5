@@ -54,7 +54,7 @@ function invoiceProductList(item) {
     row.appendChild(price);
     row.appendChild(quantity);
     row.appendChild(itemSubTotal);
-}
+};
 
 //--------------------------FONCTION : VERIFIER LE PANIER
 function assignCartElements(contact, total, id) {

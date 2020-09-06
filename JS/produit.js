@@ -12,9 +12,7 @@ console.log(`Récupération de l'ID du produit : ${itemUrl}`);
 let container = document.querySelector('main');
 container.className = "container-fluid";
 
-
 //----------------------------SI LA REQUETE ABOUTIT :
-
 fetchProduct(itemUrl).then(item => {
         createProductBlock(item); // GENERER LE BLOC PRODUIT
         optionLoop(item); // GENERER LA BOUCLE DES OPTIONS 
@@ -28,7 +26,6 @@ fetchProduct(itemUrl).then(item => {
     });
 
 //---------------------------FONCTION : RECUPERER LE PRODUIT
-
 async function fetchProduct(itemUrl) {
 
     let response = await fetch(itemUrl); // REQUETE
@@ -36,15 +33,13 @@ async function fetchProduct(itemUrl) {
         let item = await response.json();
         return item;
     }
-}
+};
 
 //----------------------------------CREATION DU PANIER
-
 let cart = localStorage.getItem("itemCart");
 createCart();
 
 //----------------------FONCTION : CREER LE BLOC ITEM
-
 function createProductBlock(item) {
     container.innerHTML =
         `<section class="row justify-content-center mx-auto col-12 mb-4">
@@ -74,7 +69,7 @@ function optionLoop(item) {
         itemOptions.innerHTML = item.lenses[option];
         itemOptionsSelect.appendChild(itemOptions);
     }
-}
+};
 
 //-------------------------FONCTION : CREER LE PANIER
 function createCart() {
@@ -87,7 +82,8 @@ function createCart() {
         console.log('Panier existant');
 
     }
-}
+};
+
 //----------------------------------FONCTION : ENVOYER LE PANIER 
 function sendBtn(item) {
     document.getElementById('cartBtn').addEventListener('click', (e) => {
@@ -155,7 +151,7 @@ function sendBtn(item) {
         localStorage.setItem("itemCart", JSON.stringify(cart));
 
     });
-}
+};
 
 
 

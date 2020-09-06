@@ -46,4 +46,4 @@ function createItemBlock(item) {
                     </a>`;
     container.innerHTML += product; // CREATION D'UN BLOC
     // SUPPLEMENTAIRE A CHAQUE TOUR DE BOUCLE               
-}
+};

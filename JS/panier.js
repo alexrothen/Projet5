@@ -147,11 +147,9 @@ function createCartBlock(item) {
         //...PUIS L'INTEGRER DANS L'OPTION CORRESPONDANTE VIA L'ATTRIBUT 'SELECTED'
         chosenQuantity.setAttribute('selected', "");
     }
-}
-
+};
 
 //---------------------------FONCTION : ENVOYER LES DONNEES
-
 function sendData() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -196,7 +194,8 @@ function sendData() {
         e.stopPropagation();
 
     })
-}
+};
+
 //--------------------------------FONCTION : VERIFIER L'ETAT DU PANIER
 function checkCart() {
     if (!cart) { // SI LE PANIER EST VIDE...
@@ -206,7 +205,7 @@ function checkCart() {
         totalAmount.textContent = `total : ${formatPrice(total())} €`; // AFFICHAGE DU TOTAL GENERAL
 
     }
-}
+};
 
 //---------------------------------FONCTION : AFFICHER 'PANIER VIDE !'
 function emptyCart() {
@@ -219,6 +218,7 @@ function emptyCart() {
     
 
 };
+
 //---------------------------------FONCTION : CALCUL DU TOTAL
 function total() {
     let total = 0;
@@ -228,13 +228,13 @@ function total() {
     }
     return total;
 
-}
+};
 //-----------------------------------FONCTION : INTEGRER PLUSIEURS ATTRIBUTS A LA FOIS
 function setAttributes(element, options) {
     Object.keys(options).forEach( (attribute) => {
         element.setAttribute(attribute, options[attribute]);
     })
-}
+};
 
 //-------------------------------------BOUTON : DESACTIVÉ SI LE FORMULAIRE EST INCOMPLET
 form.addEventListener('change', () => {
