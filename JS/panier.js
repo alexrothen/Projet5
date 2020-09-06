@@ -212,7 +212,7 @@ function checkCart() {
 function emptyCart() {
 
     let emptyCart = document.createElement('h2');
-    emptyCart.className = "text-center display-4 mt-5 pt-5 ml-5 col-11 d-flex p-2 justify-content-center"
+    emptyCart.className = "text-center display-4 mt-5 pt-5 ml-3 col-11 d-flex p-2 justify-content-center"
     emptyCart.textContent = "Panier vide !"
     container.appendChild(emptyCart);
     formBloc.remove();

@@ -29,15 +29,15 @@ function invoiceProductList(item) {
 
     let name = document.createElement('td')
     name.textContent = item.name;
-    name.className = "col-2"
+    name.className = "col-lg-2 col-md-2 col-sm-3"
 
     let description = document.createElement('td')
     description.textContent = item.description;
-    description.className = "col-5 text-justify"
+    description.className = "d-none d-lg-block d-md-block col-5 text-justify"
 
     let price = document.createElement('td')
     price.textContent = `${formatPrice(item.price)} €`;
-    price.className = "col-2 text-right"
+    price.className = "col-lg-2 col-md-2 col-sm-3 text-right"
 
     let quantity = document.createElement('td')
     quantity.textContent = item.quantity;
@@ -45,7 +45,7 @@ function invoiceProductList(item) {
 
     let itemSubTotal = document.createElement('td')
     itemSubTotal.textContent = `${formatPrice(item.subTotal)} €`;
-    itemSubTotal.className = "col-2 text-right"
+    itemSubTotal.className = "col-lg-2 col-md-2 col-sm-3 text-right"
 
     //ARCHITECTURE
     rowBloc.appendChild(row)
@@ -67,12 +67,12 @@ function assignCartElements(contact, total, id) {
         document.getElementById('name').textContent = `${contact.firstName} ${contact.lastName}`;
         document.getElementById('address').textContent = contact.address;
         document.getElementById('city').textContent = `${contact.zip} ${contact.city}`;
-        document.getElementById('email').textContent = contact.email;
+        document.getElementById('email').innerHTML = `<a href="mailto:${contact.email}">${contact.email}</a>`;
     } else {
         //...SINON EFFACER LE TABLEAU HTML ET AFFICHER LE MESSAGE CI-DESSOUS   
         document.getElementById('invoice').remove()
         document.getElementById('mainBloc').innerHTML = `<h2 class="text-center display-4 mt-5 pt-5 ml-5 col-11 d-flex p-2 justify-content-center">A bientôt sur Orinico !</h2>
         `
     }
-    localStorage.clear(); //...PUIS SUPPRIMER LE CONTENU DU LOCALSTORAGE
+    // localStorage.clear(); //...PUIS SUPPRIMER LE CONTENU DU LOCALSTORAGE
 };

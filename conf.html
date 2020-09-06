@@ -13,39 +13,37 @@
 </head>
 
 <body class="bg-light">
-    <header class="container-fluid">
-        <div class="row mb-4 pt-2 col-12">
-            <a class="col-11 text-decoration-none text-muted text-dark" href="index.html">
-                <h1 class="display-3 text-center text-muted ml-5 pl-5">orinico</h1>
-            </a>
-            <a class="text-decoration-none text-muted align-self-center col-1" href="panier.html">
-                <svg width="2.2rem" height="2.2rem" viewBox="0 0 16 16"
-                    class="bi bi-bag text-muted rounded float-right" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z" />
-                    <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z" />
-                </svg>
-            </a>
-        </div>
+    <header class="container container-fluid">
+        <div class="row mb-4 pt-2 d-flex col-12 justify-content-center">
+        <a class="col-lg-11 col-10 col-lg-11 pl-5 text-decoration-none text-muted text-dark d-flex justify-content-center" href="index.html">
+            <h1 class="display-1 text-muted">orinico</h1>
+        </a>
+        <a class="d-flex text-decoration-none text-muted align-self-center" href="panier.html">
+            <svg id="cart" viewBox="0 0 16 16" class="bi bi-bag text-muted rounded" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z"/>
+            <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z"/>
+          </svg>  
+        </a>
+    </div>
     </header>
     <main id="mainBloc" class="container-fluid">
         <div id="invoice" class="mt-5 mb-4">
-            <div class="card col-9 mx-auto p-0">
+            <div class="card col-sm-12 col-lg-9 col-md-12 mx-auto p-0">
                 <div class="card-header">
                     <h2 id="thanks" class="h3 text-center mb-4 mt-2"></h2>
                 </div>
                 <div class="card-body">
-                    <div class="row mb-4 col-12 mx-auto">
-                        <div class="col-lg-6 col-sm-12 mb-3">
+                    <div class="row mb-4 col-12 mx-auto d-none d-lg-block d-md-block ">
+                        <div class="col-12 mb-3">
                             <h4 class="text-muted col-sm-12">orinico</h4>
                         </div>
-                        <div class="col-lg-6 col-sm-12 mb-3">
+                        <div class=" col-l2 mb-3">
                             <ul class="list-unstyled">
                                 <li id="name" class="text-right"></li>
                                 <li id="address" class="text-right"></li>
                                 <li id="city" class="text-right"></li>
                                 <li id="email" class="text-right"></li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -62,18 +60,15 @@
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-sm-5">
 
-                        </div>
-
-                        <div class="col-lg-4 col-sm-5 ml-auto">
+                        <div class="col-12 ml-auto">
                             <table class="table table-clear">
                                 <tbody>
-                                    <tr>
-                                        <td class="right text-right">
+                                    <tr class="row col-12">
+                                        <td class="text-right col-lg-10 col-md-10 col-sm-6">
                                             <strong>Total :</strong>
                                         </td>
-                                        <td class="right text-right">
+                                        <td class="text-right col-lg-2 col-md-2 col-sm-6">
                                             <strong id="total"></strong>
                                         </td>
                                     </tr>
