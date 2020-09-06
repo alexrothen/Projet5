@@ -74,5 +74,5 @@ function assignCartElements(contact, total, id) {
         document.getElementById('mainBloc').innerHTML = `<h2 class="text-center display-4 mt-5 pt-5 ml-5 col-11 d-flex p-2 justify-content-center">A bientôt sur Orinico !</h2>
         `
     }
-    // localStorage.clear(); //...PUIS SUPPRIMER LE CONTENU DU LOCALSTORAGE
+    localStorage.clear(); //...PUIS SUPPRIMER LE CONTENU DU LOCALSTORAGE
 };
