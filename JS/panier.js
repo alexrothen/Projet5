@@ -17,16 +17,16 @@ container.className = "container-fluid d-flex row mx-auto pb-5 col-12";
 checkCart(); // VERIFICATION DU PANIER
 
 for (let i in cart) {
-    createItemBlock(cart[i]); // CREATION DES BLOCS ITEMS
+    createCartBlock(cart[i]); // CREATION DES BLOCS ITEMS
 }
 sendData(); // ENVOI DES DONNEES
 
 
 //---------------------------------FONCTION : CREER LE BLOC ITEM
-function createItemBlock(item) {
+function createCartBlock(item) {
 
-    let itemBlock = document.createElement('section');
-    itemBlock.className = "row mx-auto pt-0 col-lg-10 col-md-11 shadow-sm pt-3 mb-5 bg-white rounded ";
+    let cartBlock = document.createElement('section');
+    cartBlock.className = "row mx-auto pt-0 col-lg-10 col-md-11 shadow-sm pt-3 mb-5 bg-white rounded ";
 
     let imgBlock = document.createElement('div');
     imgBlock.className = "d-flex col-lg-6 col-md-6 align-items-start mx-auto";
@@ -87,10 +87,10 @@ function createItemBlock(item) {
         itemQuantitySelect.appendChild(itemQuantityOption);
     }
     // EVENT : CAPTURER LA QUANTITE SELECTIONNEE
-    itemQuantitySelect.addEventListener('change', selectQuantity);
+    itemQuantitySelect.addEventListener('change', updateQuantity);
 
     //------------------------FONCTION : RECUPERER LA DERNIERE QUANTITE CHOISIE
-    function selectQuantity() {
+    function updateQuantity() {
         let quantitySelected = itemQuantitySelect.options[itemQuantitySelect.selectedIndex].value; //...RECUPERATION DE LA QUANTITE SELECTIONNEE
         item.quantity = quantitySelected; //...LA REMPLACER DANS LE PANIER
         item.subTotal = quantitySelected * item.price; //...RECALCULER LE SOUS-TOTAL
@@ -102,9 +102,9 @@ function createItemBlock(item) {
 
     }
     // ARCHITECTURE
-    container.appendChild(itemBlock);
-    itemBlock.appendChild(imgBlock);
-    itemBlock.appendChild(asideBlock);
+    container.appendChild(cartBlock);
+    cartBlock.appendChild(imgBlock);
+    cartBlock.appendChild(asideBlock);
     asideBlock.appendChild(asideList);
     asideList.appendChild(itemName);
     asideList.appendChild(itemOptions);
@@ -121,7 +121,7 @@ function createItemBlock(item) {
         removeBtn.addEventListener('click', (e) => {
 
             e.preventDefault;
-            itemBlock.remove(); // SUPPRESSION DU BLOC ITEM...
+            cartBlock.remove(); // SUPPRESSION DU BLOC ITEM...
             cart.splice(cart.indexOf(item), 1); //... ET DE L'ITEM DANS LE PANIER
             console.log(`article supprimé du panier`)
             localStorage.setItem("itemCart", JSON.stringify(cart));
@@ -211,11 +211,12 @@ function checkCart() {
 //---------------------------------FONCTION : AFFICHER 'PANIER VIDE !'
 function emptyCart() {
 
+    formBlock.remove();
     let emptyCart = document.createElement('h2');
     emptyCart.className = "text-center display-4 mt-5 pt-5 ml-3 col-11 d-flex p-2 justify-content-center"
     emptyCart.textContent = "Panier vide !"
     container.appendChild(emptyCart);
-    formBlock.remove();
+    
 
 };
 //---------------------------------FONCTION : CALCUL DU TOTAL
@@ -229,9 +230,9 @@ function total() {
 
 }
 //-----------------------------------FONCTION : INTEGRER PLUSIEURS ATTRIBUTS A LA FOIS
-function setAttributes(el, options) {
-    Object.keys(options).forEach(function (attr) {
-        el.setAttribute(attr, options[attr]);
+function setAttributes(element, options) {
+    Object.keys(options).forEach( (attribute) => {
+        element.setAttribute(attribute, options[attribute]);
     })
 }
 

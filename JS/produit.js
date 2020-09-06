@@ -16,7 +16,7 @@ container.className = "container-fluid";
 //----------------------------SI LA REQUETE ABOUTIT :
 
 fetchProduct(itemUrl).then(item => {
-        createItemBlock(item); // GENERER LE BLOC PRODUIT
+        createProductBlock(item); // GENERER LE BLOC PRODUIT
         optionLoop(item); // GENERER LA BOUCLE DES OPTIONS 
         sendBtn(item); // GENERER LE BOUTON D'ENVOI
 
@@ -27,12 +27,67 @@ fetchProduct(itemUrl).then(item => {
         console.log(error);
     });
 
+//---------------------------FONCTION : RECUPERER LE PRODUIT
+
+async function fetchProduct(itemUrl) {
+
+    let response = await fetch(itemUrl); // REQUETE
+    if (response.ok) {
+        let item = await response.json();
+        return item;
+    }
+}
 
 //----------------------------------CREATION DU PANIER
+
 let cart = localStorage.getItem("itemCart");
 createCart();
 
+//----------------------FONCTION : CREER LE BLOC ITEM
 
+function createProductBlock(item) {
+    container.innerHTML =
+        `<section class="row justify-content-center mx-auto col-12 mb-4">
+    <div class="col-lg-7 col-md-8 col-sm-12"><img src=${item.imageUrl} class="img-fluid"></div>
+        <aside class="col-lg-4 col-md-4" style="height: fit-content;">
+            <ul class="row list-group-flush pl-0">
+                <li class="text-left list-group-item col-lg-12">${item.name}</li>
+                <li class="text-justify list-group-item col-lg-12">${item.description}</li>
+                <li class="text-left list-group-item col-md-5 col-lg-4">
+                    <select class="form-control" id="selectQt"><option>1</option><option>2</option><option>3</option><option>4</option>
+                    <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                    <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option>
+                    <option>18</option><option>19</option><option>20</option></select></li>
+                <li class="text-left list-group-item col-md-7 col-lg-8">
+                    <select id="selectOpt" class="form-control"></select></li>
+                <li class="text-center col-md-12 list-group-item  "><strong>Prix : ${formatPrice(item.price)} €</strong></li></ul>
+            <button id="cartBtn" class="btn btn-secondary d-flex mx-auto mt-4" type="button">Ajouter au panier</button>
+        </aside>
+</section>`
+};
+
+//----------------------FONCTION : GENERER LES OPTIONS
+function optionLoop(item) {
+    for (let option in item.lenses) {
+        let itemOptionsSelect = document.getElementById('selectOpt');
+        let itemOptions = document.createElement('option');
+        itemOptions.innerHTML = item.lenses[option];
+        itemOptionsSelect.appendChild(itemOptions);
+    }
+}
+
+//-------------------------FONCTION : CREER LE PANIER
+function createCart() {
+    if (!cart) { // SI LE PANIER N'EXISTE PAS...
+        cart = []; //... INITIALISER L'ARRAY.
+        console.log('Panier créé')
+
+    } else { // SI LE PANIER EXISTE...
+        cart = JSON.parse(localStorage.getItem("itemCart")); //... LE PARSER.
+        console.log('Panier existant');
+
+    }
+}
 //----------------------------------FONCTION : ENVOYER LE PANIER 
 function sendBtn(item) {
     document.getElementById('cartBtn').addEventListener('click', (e) => {
@@ -101,57 +156,6 @@ function sendBtn(item) {
 
     });
 }
-//---------------------------FONCTION : RECUPERER LE PRODUIT
-async function fetchProduct(itemUrl) {
 
-    let response = await fetch(itemUrl); // REQUETE
-    if (response.ok) {
-        let item = await response.json();
-        return item;
-    }
-}
 
-//-------------------------FONCTION : CREER LE PANIER
-function createCart() {
-    if (!cart) { // SI LE PANIER N'EXISTE PAS...
-        cart = []; //... INITIALISER L'ARRAY.
-        console.log('Panier créé')
 
-    } else { // SI LE PANIER EXISTE...
-        cart = JSON.parse(localStorage.getItem("itemCart")); //... LE PARSER.
-        console.log('Panier existant');
-
-    }
-}
-
-//----------------------FONCTION : CREER LE BLOC ITEM
-function createItemBlock(item) {
-    container.innerHTML =
-        `<section class="row justify-content-center mx-auto col-12 mb-4">
-    <div class="col-lg-7 col-md-8 col-sm-12"><img src=${item.imageUrl} class="img-fluid"></div>
-        <aside class="col-lg-4 col-md-4" style="height: fit-content;">
-            <ul class="row list-group-flush pl-0">
-                <li class="text-left list-group-item col-lg-12">${item.name}</li>
-                <li class="text-justify list-group-item col-lg-12">${item.description}</li>
-                <li class="text-left list-group-item col-md-5 col-lg-4">
-                    <select class="form-control" id="selectQt"><option>1</option><option>2</option><option>3</option><option>4</option>
-                    <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-                    <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option>
-                    <option>18</option><option>19</option><option>20</option></select></li>
-                <li class="text-left list-group-item col-md-7 col-lg-8">
-                    <select id="selectOpt" class="form-control"></select></li>
-                <li class="text-center col-md-12 list-group-item  "><strong>Prix : ${formatPrice(item.price)} €</strong></li></ul>
-            <button id="cartBtn" class="btn btn-secondary d-flex mx-auto mt-4" type="button">Ajouter au panier</button>
-        </aside>
-</section>`
-};
-
-//----------------------FONCTION : GENERER LES OPTIONS
-function optionLoop(item) {
-    for (let option in item.lenses) {
-        let itemOptionsSelect = document.getElementById('selectOpt');
-        let itemOptions = document.createElement('option');
-        itemOptions.innerHTML = item.lenses[option];
-        itemOptionsSelect.appendChild(itemOptions);
-    }
-}
