@@ -22,14 +22,14 @@ fetchIndex(url).then(items => {
         console.log(error);
     });
 
-//---------------------FONCTION : RETOURNER LE CONTENU DE LA REQUETE
+//---------------------------FONCTION : RECUPERER LES PRODUITS 
 async function fetchIndex(url) {
 
-    let response = await fetch(url);
+    let response = await fetch(url);// REQUETE
     if (response.ok) {
         let items = await response.json();
 
-        return items;
+        return items; // REPONSE AU FORMAT JSON
     };
 };
 

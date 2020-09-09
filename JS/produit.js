@@ -31,7 +31,7 @@ async function fetchProduct(itemUrl) {
     let response = await fetch(itemUrl); // REQUETE
     if (response.ok) {
         let item = await response.json();
-        return item;
+        return item; //REPONSE AU FORMAT JSON 
     }
 };
 
@@ -94,6 +94,7 @@ function sendBtn(item) {
 
         let itemOptionsSelect = document.getElementById('selectOpt');
         itemOptionsSelect.addEventListener('change', selectOptions);
+
         //---------------------FONCTION : CAPTURER LA DERNIERE QUANTITE
         function selectQuantity() {
             return itemQuantitySelect.options[itemQuantitySelect.selectedIndex].value;
@@ -115,7 +116,7 @@ function sendBtn(item) {
             subTotal: selectQuantity() * item.price
         };
 
-        // SI LE PRODUIT EST DEJA PRESENT DANS PANIER...
+        // SI LE PRODUIT AVEC LA MEME OPTION EST DEJA PRESENT DANS PANIER...
         if (cart.find(item => item.id === addItemToCart.id && item.options === addItemToCart.options)) {
 
             for (let i in cart) {

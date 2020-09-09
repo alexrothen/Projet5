@@ -89,18 +89,6 @@ function createCartBlock(item) {
     // EVENT : CAPTURER LA QUANTITE SELECTIONNEE
     itemQuantitySelect.addEventListener('change', updateQuantity);
 
-    //------------------------FONCTION : RECUPERER LA DERNIERE QUANTITE CHOISIE
-    function updateQuantity() {
-        let quantitySelected = itemQuantitySelect.options[itemQuantitySelect.selectedIndex].value; //...RECUPERATION DE LA QUANTITE SELECTIONNEE
-        item.quantity = quantitySelected; //...LA REMPLACER DANS LE PANIER
-        item.subTotal = quantitySelected * item.price; //...RECALCULER LE SOUS-TOTAL
-        localStorage.setItem("itemCart", JSON.stringify(cart)); //...ENVOYER NOUVELLES DONNEES VERS LE LOCALSTORAGE
-        total(); //...RECALCUL DU TOTAL GENERAL
-        totalAmount.textContent = `total : ${formatPrice(total())} €`; // AFFICHAGE DU TOTAL GENERAL
-        subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
-        console.log(`Quantité mise à jour : ${item.quantity} ${item.name} option ${item.options} ${formatPrice(item.subTotal)} €`)
-
-    }
     // ARCHITECTURE
     container.appendChild(cartBlock);
     cartBlock.appendChild(imgBlock);
@@ -115,6 +103,19 @@ function createCartBlock(item) {
     asideList.appendChild(removeBtn);
     retrieveQt(item);
     removeItem(item);
+
+    //------------------------FONCTION : RECUPERER LA DERNIERE QUANTITE CHOISIE
+    function updateQuantity() {
+        let quantitySelected = itemQuantitySelect.options[itemQuantitySelect.selectedIndex].value; //...RECUPERATION DE LA QUANTITE SELECTIONNEE
+        item.quantity = quantitySelected; //...LA REMPLACER DANS LE PANIER
+        item.subTotal = quantitySelected * item.price; //...RECALCULER LE SOUS-TOTAL
+        localStorage.setItem("itemCart", JSON.stringify(cart)); //...ENVOYER NOUVELLES DONNEES VERS LE LOCALSTORAGE
+        total(); //...RECALCUL DU TOTAL GENERAL
+        totalAmount.textContent = `total : ${formatPrice(total())} €`; // AFFICHAGE DU TOTAL GENERAL
+        subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
+        console.log(`Quantité mise à jour : ${item.quantity} ${item.name} option ${item.options} ${formatPrice(item.subTotal)} €`)
+
+    };
 
     //------------------------------FONCTION : SUPPRIMER LE BLOC AU CLICK
     function removeItem(item) {
@@ -137,7 +138,8 @@ function createCartBlock(item) {
             totalAmount.textContent = `total : ${formatPrice(total())} €`;
             subTotal.textContent = `Sous-total: ${formatPrice(item.subTotal)} €`;
         })
-    }
+    };
+
     //---------------------------FONCTION : RECUPERER LA QUANTITE CHOISIE SUR LA PAGE PRODUIT
     function retrieveQt(item) {
         //RECUPERATION DE LA QUANTITE SELECTIONNEE SUR LA PAGE PRODUIT...
@@ -146,7 +148,8 @@ function createCartBlock(item) {
 
         //...PUIS L'INTEGRER DANS L'OPTION CORRESPONDANTE VIA L'ATTRIBUT 'SELECTED'
         chosenQuantity.setAttribute('selected', "");
-    }
+    };
+    
 };
 
 //---------------------------FONCTION : ENVOYER LES DONNEES
@@ -160,7 +163,8 @@ function sendData() {
             address: document.getElementById('address').value,
             city: document.getElementById('city').value,
             zip: document.getElementById('zip').value,
-            email: document.getElementById('email').value
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value
         };
         let products = []; // ARRAY PRODUITS SELECTIONNES
         cart.forEach(item => {
@@ -187,8 +191,8 @@ function sendData() {
                 localStorage.setItem("orderId", orderId);
                 localStorage.setItem("itemCart", JSON.stringify(cart));
                 localStorage.setItem("contact", JSON.stringify(contact));
-
                 localStorage.setItem("totalAmount", formatPrice(total())); // ENVOI DU TOTAL
+                
                 form.setAttribute("action", `${window.location.replace("conf.html")}`)
             })
         e.stopPropagation();
@@ -215,7 +219,6 @@ function emptyCart() {
     emptyCart.className = "text-center display-4 mt-5 pt-5 ml-3 col-11 d-flex p-2 justify-content-center"
     emptyCart.textContent = "Panier vide !"
     container.appendChild(emptyCart);
-    
 
 };
 
@@ -229,9 +232,10 @@ function total() {
     return total;
 
 };
+
 //-----------------------------------FONCTION : INTEGRER PLUSIEURS ATTRIBUTS A LA FOIS
 function setAttributes(element, options) {
-    Object.keys(options).forEach( (attribute) => {
+    Object.keys(options).forEach((attribute) => {
         element.setAttribute(attribute, options[attribute]);
     })
 };

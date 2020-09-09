@@ -11,7 +11,6 @@ let cart = JSON.parse(localStorage.getItem("itemCart")); // PANIER
 let contact = JSON.parse(localStorage.getItem("contact")); // CONTACT
 let totalAmount = localStorage.getItem("totalAmount"); // TOTAL
 
-
 //---------------------------ELEMENT PARENT SUR LEQUEL LES BLOCS VONT SE GREFFER
 let rowBlock = document.getElementById('rowBlock');
 
@@ -57,22 +56,23 @@ function invoiceProductList(item) {
 };
 
 //--------------------------FONCTION : VERIFIER LE PANIER
-function assignCartElements(contact, total, id) {
+function assignCartElements(contact, total, orderId) {
     //SI LE PANIER EST PRESENT DANS LE LOCALSTORAGE...
     if (cart) {
         //...ASSIGNER LES ELEMENTS
-        document.getElementById('numOrder').innerHTML = `<strong>Commande n° ${id}</strong>`; // NUMERO DE COMMANDE
+        document.getElementById('numOrder').innerHTML = `<strong>Commande n° ${orderId}</strong>`; // NUMERO DE COMMANDE
         document.getElementById('total').textContent = `${total} €`; //MONTANT
         document.getElementById('thanks').textContent = `Merci pour votre commande ${contact.firstName} !`
         document.getElementById('name').textContent = `${contact.firstName} ${contact.lastName}`;
         document.getElementById('address').textContent = contact.address;
         document.getElementById('city').textContent = `${contact.zip} ${contact.city}`;
+        document.getElementById('phone').textContent = contact.phone;
         document.getElementById('email').innerHTML = `<a href="mailto:${contact.email}">${contact.email}</a>`;
     } else {
         //...SINON EFFACER LE TABLEAU HTML ET AFFICHER LE MESSAGE CI-DESSOUS   
         document.getElementById('invoice').remove()
-        document.getElementById('mainBlock').innerHTML = `<h2 class="text-center display-4 mt-5 pt-5 ml-5 col-11 d-flex p-2 justify-content-center">A bientôt sur Orinico !</h2>
-        `
+        document.getElementById('mainBlock').innerHTML = 
+        `<h2 class="text-center display-4 mt-5 pt-5 ml-5 col-11 d-flex p-2 justify-content-center">A bientôt sur Orinico !</h2>`
     }
     localStorage.clear(); //...PUIS SUPPRIMER LE CONTENU DU LOCALSTORAGE
 };
