@@ -95,16 +95,6 @@ function sendBtn(item) {
         let itemOptionsSelect = document.getElementById('selectOpt');
         itemOptionsSelect.addEventListener('change', selectOptions);
 
-        //---------------------FONCTION : CAPTURER LA DERNIERE QUANTITE
-        function selectQuantity() {
-            return itemQuantitySelect.options[itemQuantitySelect.selectedIndex].value;
-        }
-
-        //--------------------FONCTION : CAPTURER LA DERNIERE OPTION 
-        function selectOptions() {
-            return itemOptionsSelect.options[itemOptionsSelect.selectedIndex].value;
-        }
-
         let addItemToCart = { // CREATION DE L'OBJET PRODUIT
             _id: item._id,
             name: item.name,
@@ -148,11 +138,18 @@ function sendBtn(item) {
             })
 
         }
+        //---------------------FONCTION : CAPTURER LA DERNIERE QUANTITE
+        function selectQuantity() {
+            return itemQuantitySelect.options[itemQuantitySelect.selectedIndex].value;
+        }
+
+        //--------------------FONCTION : CAPTURER LA DERNIERE OPTION 
+        function selectOptions() {
+            return itemOptionsSelect.options[itemOptionsSelect.selectedIndex].value;
+        }
+        
         // ENVOI DE L'OBJET PRODUIT VERS LE LOCALSTORAGE
         localStorage.setItem("itemCart", JSON.stringify(cart));
 
     });
 };
-
-
-

@@ -25,7 +25,7 @@ fetchIndex(url).then(items => {
 //---------------------------FONCTION : RECUPERER LES PRODUITS 
 async function fetchIndex(url) {
 
-    let response = await fetch(url);// REQUETE
+    let response = await fetch(url);// REQUETE 
     if (response.ok) {
         let items = await response.json();
 
@@ -34,8 +34,8 @@ async function fetchIndex(url) {
 };
 
 function createItemBlock(item) {
-
-    let product = `<a class = "badge badge-light col-md-6 col-sm-12 mx-auto" href = "produit.html?id=${item._id}" style = "white-space: normal;" > 
+                                                                            // AJOUT DE L'ID EN PARAMETRE DE L'URL
+    let product = `<a class = "badge badge-light col-md-6 col-sm-12 mx-auto" href="produit.html?id=${item._id}" style = "white-space: normal;" > 
                         <ul class = "row list-group-flush col-12 col-sm-12 text-center mx-auto "> 
                             <li class = "text-center col-10 list-group-item mx-auto"> 
                                 <img src=${item.imageUrl} class="img-fluid"></li>
