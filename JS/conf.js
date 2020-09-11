@@ -67,7 +67,7 @@ function assignCartElements(contact, total, orderId) {
         document.getElementById('address').textContent = contact.address;
         document.getElementById('city').textContent = `${contact.zip} ${contact.city}`;
         document.getElementById('phone').textContent = contact.phone;
-        document.getElementById('email').innerHTML = `<a href="mailto:${contact.email}">${contact.email}</a>`;
+        document.getElementById('email').textContent = contact.email;
     } else {
         //...SINON EFFACER LE TABLEAU HTML ET AFFICHER LE MESSAGE CI-DESSOUS   
         document.getElementById('invoice').remove()
